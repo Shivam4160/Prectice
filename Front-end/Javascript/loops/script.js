@@ -48,13 +48,14 @@
 
 {
 
-    let rahul= {
+    let rahul ={
         name:"rahul",
         height:"182cm",
         age:19,
         sport:"volleyball",
         position:"ace",
-        year:"3rd"
+        year:"3rd",
+        score:124
     }
 
     let yash ={
@@ -63,24 +64,19 @@
         age:18,
         sport:"volleyball",
         position:"setter",
-        year:"2nd"
+        year:"2nd",
+        sets:188
     }
 
-    let set =new set(
-        
-    )
+    let set =new Set()
 
-    console.log(obj.age);
-    console.log(obj.name);
-    
-    for(keys in obj){
-        console.log(`${keys} = ${obj[keys]}`);
-    }
-    
+    set.add(rahul);
+    set.add(yash);
 
-    obj.score = 124;
-    console.log(obj.score);
+    console.log(set);
+
+    console.log(set);
     
-    console.log("\n\n\n\n\n\n\n\n\n");
+    // console.log("\n\n\n\n\n\n\n\n\n");
 }
 
