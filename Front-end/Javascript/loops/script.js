@@ -39,7 +39,6 @@
         console.log(`${i}`);
     }
 
-
     console.log("\n\n\n\n\n\n\n\n\n");
 
 }
