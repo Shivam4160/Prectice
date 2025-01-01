@@ -72,9 +72,10 @@
     set.add(rahul);
     set.add(yash);
 
-    console.log(set);
+    let set1 = set.keys()
 
-    console.log(set);
+    console.log(set1.next().value);
+    console.log(set1.next().value);
     
     // console.log("\n\n\n\n\n\n\n\n\n");
 }
