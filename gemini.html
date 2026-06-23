@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESPORTS NEXUS - Global News & AI Analyst Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter and Orbitron (for gaming accents) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Gaming & Esports Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        orbitron: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        cyber: {
+                            bg: '#05070f',
+                            card: '#0f1322',
+                            border: '#1f293d',
+                            primary: '#8b5cf6', // violet
+                            secondary: '#10b981', // emerald
+                            accent: '#f43f5e', // rose
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05070f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f293d;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8b5cf6;
+        }
+        .glow-hover:hover {
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+        }
+        .glow-emerald:hover {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        /* Pulsing neon dots */
+        @keyframes pulse-neon {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.2); }
+        }
+        .pulse-dot {
+            animation: pulse-neon 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-gray-100 font-sans min-h-screen selection:bg-violet-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <nav class="border-b border-cyber-border bg-cyber-bg/95 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="bg-gradient-to-tr from-violet-600 to-rose-500 p-2.5 rounded-xl shadow-lg shadow-violet-500/20">
+                        <i class="fa-solid fa-gamepad text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <span class="font-orbitron text-2xl font-black tracking-wider bg-gradient-to-r from-white via-violet-400 to-rose-400 bg-clip-text text-transparent">
+                            NEXUS
+                        </span>
+                        <span class="text-[10px] block font-semibold tracking-widest text-violet-500 uppercase font-orbitron">ESPORTS WORLD</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Navigation Links -->
+                <div class="hidden md:flex items-center gap-1">
+                    <button onclick="switchTab('all')" id="nav-btn-all" class="nav-tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-violet-600/20 text-violet-400 border border-violet-500/30">
+                        <i class="fa-solid fa-newspaper mr-1.5"></i> All News
+                    </button>
+                    <button onclick="switchTab('ewc')" id="nav-btn-ewc" class="nav-tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white hover:bg-slate-900">
+                        <i class="fa-solid fa-trophy mr-1.5 text-yellow-500"></i> EWC 2026 Hub
+                    </button>
+                    <button onclick="switchTab('results')" id="nav-btn-results" class="nav-tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white hover:bg-slate-900">
+                        <i class="fa-solid fa-square-poll-horizontal mr-1.5 text-emerald-400"></i> Match Results
+                    </button>
+                    <button onclick="switchTab('bookmarks')" id="nav-btn-bookmarks" class="nav-tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white hover:bg-slate-900 relative">
+                        <i class="fa-solid fa-bookmark mr-1.5 text-rose-500"></i> Bookmarks
+                        <span id="bookmark-badge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold px-1.5 rounded-full hidden">0</span>
+                    </button>
+                </div>
+
+                <!-- AI Analyst CTA Button -->
+                <div class="flex items-center gap-3">
+                    <a href="#ai-analyst" class="bg-gradient-to-r from-violet-600 to-rose-500 hover:from-violet-500 hover:to-rose-400 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-violet-500/10 hover:shadow-violet-500/30 transition-all duration-300 flex items-center gap-2">
+                        <i class="fa-solid fa-wand-magic-sparkles animate-pulse"></i>
+                        <span class="hidden sm:inline">Ask AI Analyst</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Live & Recent Score Ticker -->
+    <div class="bg-slate-900/80 border-b border-cyber-border py-2.5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 flex items-center gap-4">
+            <div class="flex items-center gap-2 shrink-0 bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-black uppercase px-2.5 py-1 rounded font-orbitron tracking-wider">
+                <span class="w-2 h-2 rounded-full bg-rose-500 pulse-dot"></span>
+                LIVE Matches
+            </div>
+            <div class="flex items-center gap-8 overflow-x-auto no-scrollbar py-0.5 text-xs w-full text-gray-400" id="live-matches-container">
+                <!-- Live match cards will inject here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Tab 1: All Esports News (Default) -->
+        <div id="tab-all" class="tab-content block space-y-8">
+            
+            <!-- Hero Featured Showcase -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Primary Hero Feature Card -->
+                <div class="lg:col-span-2 relative rounded-3xl overflow-hidden border border-cyber-border bg-slate-900 flex flex-col justify-end min-h-[400px] p-6 sm:p-8 group">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: linear-gradient(to top, rgba(5,7,15,0.95) 40%, rgba(5,7,15,0.4) 100%), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200');"></div>
+                    <div class="relative z-10 space-y-4">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-violet-500 text-white font-bold font-orbitron text-[10px] tracking-wider uppercase px-3 py-1 rounded-full">MUST READ</span>
+                            <span class="bg-yellow-500 text-black font-extrabold font-orbitron text-[10px] tracking-wider uppercase px-3 py-1 rounded-full"><i class="fa-solid fa-award mr-1"></i>EWC 2026</span>
+                        </div>
+                        <h1 class="text-2xl sm:text-4xl font-black font-orbitron leading-tight text-white group-hover:text-violet-300 transition-colors">
+                            The Esports World Cup 2026 Crowns Its Champion: G2 Esports Domination in Riyadh
+                        </h1>
+                        <p class="text-sm text-gray-300 max-w-2xl line-clamp-2">
+                            After eight weeks of intense action across 22 game titles, the ultimate club championship trophy goes to Berlin. See full point metrics, grand finals breakdown, and the record-breaking prize payouts.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs text-gray-400">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded font-medium">Tournament News</span>
+                                <span>• 5 mins read</span>
+                            </div>
+                            <button onclick="openArticleModal('hero-ewc-2026')" class="text-violet-400 hover:text-white font-bold flex items-center gap-1.5 transition-colors">
+                                Read Full Coverage <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Secondary Hero Spotlight Card (Roster Shuffle) -->
+                <div class="relative rounded-3xl overflow-hidden border border-cyber-border bg-slate-900 flex flex-col justify-end p-6 min-h-[400px] group">
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" style="background-image: linear-gradient(to top, rgba(5,7,15,0.95) 45%, rgba(5,7,15,0.4) 100%), url('https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800');"></div>
+                    <div class="relative z-10 space-y-4">
+                        <div class="flex gap-2">
+                            <span class="bg-rose-500 text-white font-bold font-orbitron text-[10px] tracking-wider uppercase px-3 py-1 rounded-full">ROSTER SHUFFLE</span>
+                        </div>
+                        <h2 class="text-xl sm:text-2xl font-bold font-orbitron leading-snug text-white group-hover:text-rose-400 transition-colors">
+                            Sentinels Acquire Aspas in Blockbuster Valorant Roster Shakeup
+                        </h2>
+                        <p class="text-sm text-gray-300 line-clamp-3">
+                            The VCT Americas giants complete their roster for the VCT Champions Tour after long contract negotiations. We break down the roles and team dynamics.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-gray-800 text-xs text-gray-400">
+                            <div class="flex items-center gap-2">
+                                <span class="bg-slate-800 text-slate-300 px-2 py-0.5 rounded">VCT Americas</span>
+                                <span>• 4 mins read</span>
+                            </div>
+                            <button onclick="openArticleModal('hero-sentinels-aspas')" class="text-rose-400 hover:text-white font-bold flex items-center gap-1.5 transition-colors">
+                                Read More <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter & Search Console -->
+            <div class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-2xl space-y-6">
+                <!-- Search and Basic Options -->
+                <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+                    <div class="w-full md:w-1/3 relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                        <input type="text" id="news-search-input" onkeyup="handleSearch()" placeholder="Search teams, titles, tournaments..." class="w-full pl-11 pr-4 py-3 bg-slate-950 border border-cyber-border rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 text-gray-100 transition-all">
+                    </div>
+                    <div class="w-full md:w-auto flex flex-wrap gap-2 items-center justify-end">
+                        <span class="text-xs text-gray-400 font-semibold mr-1">Quick Filters:</span>
+                        <button onclick="setNewsTypeFilter('all')" class="type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-violet-600 text-white transition-all">All News</button>
+                        <button onclick="setNewsTypeFilter('roster')" class="type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-950 border border-cyber-border text-gray-400 hover:text-white transition-all">Roster Changes</button>
+                        <button onclick="setNewsTypeFilter('result')" class="type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-950 border border-cyber-border text-gray-400 hover:text-white transition-all">Match Results</button>
+                        <button onclick="setNewsTypeFilter('tournament')" class="type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-950 border border-cyber-border text-gray-400 hover:text-white transition-all">Tournaments</button>
+                    </div>
+                </div>
+
+                <!-- Expanded Dropdown Filters (Game, Club, Country, Tournament) -->
+                <div class="pt-4 border-t border-cyber-border/50 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Select Game</label>
+                        <select id="filter-game" onchange="applyDropdownFilters()" class="w-full bg-slate-950 border border-cyber-border rounded-lg p-2.5 text-xs text-gray-200 focus:ring-1 focus:ring-violet-500 focus:outline-none">
+                            <option value="">All Games</option>
+                            <option value="Valorant">Valorant</option>
+                            <option value="CS2">Counter-Strike 2</option>
+                            <option value="League of Legends">League of Legends</option>
+                            <option value="Dota 2">Dota 2</option>
+                            <option value="Mobile Legends">Mobile Legends</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Select Club</label>
+                        <select id="filter-club" onchange="applyDropdownFilters()" class="w-full bg-slate-950 border border-cyber-border rounded-lg p-2.5 text-xs text-gray-200 focus:ring-1 focus:ring-violet-500 focus:outline-none">
+                            <option value="">All Clubs</option>
+                            <option value="G2 Esports">G2 Esports</option>
+                            <option value="Sentinels">Sentinels</option>
+                            <option value="T1">T1</option>
+                            <option value="NAVI">Natus Vincere</option>
+                            <option value="Team Liquid">Team Liquid</option>
+                            <option value="Gen.G">Gen.G</option>
+                            <option value="Team Vitality">Team Vitality</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Select Tournament</label>
+                        <select id="filter-tournament" onchange="applyDropdownFilters()" class="w-full bg-slate-950 border border-cyber-border rounded-lg p-2.5 text-xs text-gray-200 focus:ring-1 focus:ring-violet-500 focus:outline-none">
+                            <option value="">All Tournaments</option>
+                            <option value="EWC 2026">Esports World Cup</option>
+                            <option value="VCT Champions 2026">VCT Champions</option>
+                            <option value="PGL Major Copenhagen">PGL CS2 Major</option>
+                            <option value="Worlds 2026">LoL Worlds</option>
+                            <option value="The International 2026">Dota TI</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Select Country</label>
+                        <select id="filter-country" onchange="applyDropdownFilters()" class="w-full bg-slate-950 border border-cyber-border rounded-lg p-2.5 text-xs text-gray-200 focus:ring-1 focus:ring-violet-500 focus:outline-none">
+                            <option value="">All Countries</option>
+                            <option value="South Korea">South Korea</option>
+                            <option value="United States">United States</option>
+                            <option value="Denmark">Denmark</option>
+                            <option value="Saudi Arabia">Saudi Arabia</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="China">China</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Active Filter Reset Badge Grid -->
+                <div id="active-badges-row" class="hidden flex-wrap gap-2 items-center text-xs text-gray-400">
+                    <span>Applied Filters:</span>
+                    <!-- Badges injected dynamically -->
+                    <button onclick="resetFilters()" class="text-violet-400 hover:underline font-bold text-[11px] uppercase tracking-wider ml-auto">Clear All</button>
+                </div>
+            </div>
+
+            <!-- Main News Card Grid -->
+            <div>
+                <h3 class="font-orbitron font-bold text-xl mb-6 text-white tracking-wide border-l-4 border-violet-500 pl-3">
+                    Latest Articles & Updates
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="news-grid">
+                    <!-- Standard news items will generate here dynamically -->
+                </div>
+                <!-- Empty state screen -->
+                <div id="empty-state" class="hidden flex-col items-center justify-center text-center p-12 bg-cyber-card border border-cyber-border rounded-2xl">
+                    <i class="fa-solid fa-ghost text-5xl text-gray-600 mb-4"></i>
+                    <h4 class="text-lg font-bold text-gray-300">No Articles Match Your Search</h4>
+                    <p class="text-sm text-gray-500 mt-1 max-w-sm">Try adjusting your filters, selecting a different game/club, or search for other keywords.</p>
+                    <button onclick="resetFilters()" class="mt-4 bg-violet-600 hover:bg-violet-500 text-white px-5 py-2 rounded-xl text-xs font-bold transition-all">Reset All Filters</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tab 2: Esports World Cup (EWC) Hub -->
+        <div id="tab-ewc" class="tab-content hidden space-y-8">
+            <div class="bg-gradient-to-r from-yellow-600/10 via-amber-600/5 to-transparent border border-amber-500/30 rounded-3xl p-6 sm:p-8 flex flex-col md:flex-row items-center gap-6 justify-between">
+                <div class="space-y-3">
+                    <span class="bg-amber-500/20 text-amber-300 text-xs font-black px-3 py-1 rounded-full uppercase tracking-widest font-orbitron border border-amber-500/30">Official EWC Coverage</span>
+                    <h2 class="text-3xl font-orbitron font-black text-white">ESPORTS WORLD CUP HUB</h2>
+                    <p class="text-gray-300 max-w-xl text-sm leading-relaxed">
+                        Follow the monumental Riyadh multi-game championship. Monitor final standing calculations, club points arrays, total prize pool allocations, and major milestones.
+                    </p>
+                </div>
+                <div class="shrink-0 bg-slate-900 border border-amber-500/20 p-5 rounded-2xl text-center shadow-lg shadow-amber-500/5">
+                    <span class="block text-3xl font-black font-orbitron text-amber-400">$60,000,000</span>
+                    <span class="text-gray-400 text-xs uppercase font-bold tracking-wider">Total Combined Prize Pool</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Club Championship Standings -->
+                <div class="lg:col-span-2 bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl">
+                    <h3 class="font-orbitron font-bold text-lg mb-4 text-white flex items-center justify-between">
+                        <span>Club Championship Standings</span>
+                        <span class="text-xs text-amber-400 uppercase font-black tracking-wider bg-amber-500/10 px-2 py-0.5 rounded">Final Metrics</span>
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead>
+                                <tr class="border-b border-cyber-border text-gray-400 font-bold text-xs uppercase tracking-wider">
+                                    <th class="py-3 px-4">Rank</th>
+                                    <th class="py-3 px-4">Club / Team</th>
+                                    <th class="py-3 px-4">Gold</th>
+                                    <th class="py-3 px-4">Silver</th>
+                                    <th class="py-3 px-4">Total Points</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-cyber-border">
+                                <tr class="hover:bg-slate-900/40 transition">
+                                    <td class="py-3.5 px-4 font-bold text-amber-400">1</td>
+                                    <td class="py-3.5 px-4 font-bold flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded bg-black flex items-center justify-center font-bold text-xs">G2</div>
+                                        G2 Esports
+                                    </td>
+                                    <td class="py-3.5 px-4 text-gray-100">4</td>
+                                    <td class="py-3.5 px-4 text-gray-100">2</td>
+                                    <td class="py-3.5 px-4 font-bold text-emerald-400 text-base">3,450</td>
+                                </tr>
+                                <tr class="hover:bg-slate-900/40 transition">
+                                    <td class="py-3.5 px-4 font-bold text-gray-300">2</td>
+                                    <td class="py-3.5 px-4 font-bold flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded bg-blue-900 flex items-center justify-center font-bold text-xs">TL</div>
+                                        Team Liquid
+                                    </td>
+                                    <td class="py-3.5 px-4 text-gray-100">2</td>
+                                    <td class="py-3.5 px-4 text-gray-100">3</td>
+                                    <td class="py-3.5 px-4 font-bold text-emerald-400 text-base">2,840</td>
+                                </tr>
+                                <tr class="hover:bg-slate-900/40 transition">
+                                    <td class="py-3.5 px-4 font-bold text-orange-400">3</td>
+                                    <td class="py-3.5 px-4 font-bold flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded bg-yellow-600 flex items-center justify-center font-bold text-xs">NV</div>
+                                        Natus Vincere
+                                    </td>
+                                    <td class="py-3.5 px-4 text-gray-100">2</td>
+                                    <td class="py-3.5 px-4 text-gray-100">1</td>
+                                    <td class="py-3.5 px-4 font-bold text-emerald-400 text-base">2,150</td>
+                                </tr>
+                                <tr class="hover:bg-slate-900/40 transition">
+                                    <td class="py-3.5 px-4 font-bold">4</td>
+                                    <td class="py-3.5 px-4 font-bold flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded bg-red-600 flex items-center justify-center font-bold text-xs">T1</div>
+                                        T1
+                                    </td>
+                                    <td class="py-3.5 px-4 text-gray-100">1</td>
+                                    <td class="py-3.5 px-4 text-gray-100">2</td>
+                                    <td class="py-3.5 px-4 font-bold text-emerald-400 text-base">1,820</td>
+                                </tr>
+                                <tr class="hover:bg-slate-900/40 transition">
+                                    <td class="py-3.5 px-4 font-bold">5</td>
+                                    <td class="py-3.5 px-4 font-bold flex items-center gap-2">
+                                        <div class="w-6 h-6 rounded bg-slate-800 flex items-center justify-center font-bold text-xs">GG</div>
+                                        Gen.G
+                                    </td>
+                                    <td class="py-3.5 px-4 text-gray-100">1</td>
+                                    <td class="py-3.5 px-4 text-gray-100">1</td>
+                                    <td class="py-3.5 px-4 font-bold text-emerald-400 text-base">1,600</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- EWC Tournament Breakdown by Game -->
+                <div class="bg-cyber-card border border-cyber-border rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-orbitron font-bold text-lg mb-4 text-white">Title Winners List</h3>
+                        <div class="space-y-4">
+                            <div class="p-3 rounded-lg bg-slate-950 flex items-center justify-between border-l-4 border-violet-500">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-violet-400 block">League of Legends</span>
+                                    <span class="font-bold text-white text-sm">T1 Esports</span>
+                                </div>
+                                <span class="text-xs bg-slate-900 px-2 py-1 rounded text-gray-300 font-semibold">$400,000</span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-950 flex items-center justify-between border-l-4 border-yellow-500">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-yellow-400 block">Counter-Strike 2</span>
+                                    <span class="font-bold text-white text-sm">Natus Vincere</span>
+                                </div>
+                                <span class="text-xs bg-slate-900 px-2 py-1 rounded text-gray-300 font-semibold">$400,000</span>
+                            </div>
+                            <div class="p-3 rounded-lg bg-slate-950 flex items-center justify-between border-l-4 border-emerald-500">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-emerald-400 block">Mobile Legends: Bang Bang</span>
+                                    <span class="font-bold text-white text-sm">Falcon Esports</span>
+                                </div>
+                                <span class="text-xs bg-slate-900 px-2 py-1 rounded text-gray-300 font-semibold">$350,000</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-cyber-border">
+                        <button onclick="switchTab('all')" class="w-full py-2.5 rounded-xl border border-cyber-border hover:bg-slate-950 text-xs font-bold transition-all text-center">
+                            Return to General Feed
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Match Results Feed -->
+        <div id="tab-results" class="tab-content hidden space-y-6">
+            <div class="flex items-center justify-between">
+                <h2 class="font-orbitron font-extrabold text-2xl text-white">GLOBAL MATCH RESULTS</h2>
+                <span class="text-xs text-gray-400 bg-slate-900 px-3 py-1 rounded border border-cyber-border">Showing past 7 days</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="match-results-main-grid">
+                <!-- Result grids injected dynamically -->
+            </div>
+        </div>
+
+        <!-- Tab 4: Bookmarks Feed -->
+        <div id="tab-bookmarks" class="tab-content hidden space-y-6">
+            <h2 class="font-orbitron font-extrabold text-2xl text-white">YOUR SAVED COVERAGE</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="bookmarks-grid">
+                <!-- Bookmarked news items dynamically inserted here -->
+            </div>
+            <div id="bookmarks-empty-state" class="hidden flex-col items-center justify-center text-center p-12 bg-cyber-card border border-cyber-border rounded-2xl">
+                <i class="fa-regular fa-bookmark text-5xl text-gray-600 mb-4"></i>
+                <h4 class="text-lg font-bold text-gray-300">No Saved Articles</h4>
+                <p class="text-sm text-gray-500 mt-1 max-w-sm">Bookmark news stories from the 'All News' feed to keep track of them right here.</p>
+                <button onclick="switchTab('all')" class="mt-4 bg-violet-600 hover:bg-violet-500 text-white px-5 py-2 rounded-xl text-xs font-bold transition-all">Browse News</button>
+            </div>
+        </div>
+
+        <!-- Gemini AI Esports Assistant & Analyst -->
+        <section id="ai-analyst" class="mt-16 bg-gradient-to-br from-violet-950/40 via-cyber-card to-slate-950 border border-violet-500/20 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <!-- Neon background visual effect -->
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-violet-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col lg:flex-row gap-8 items-stretch">
+                <!-- Info Section -->
+                <div class="lg:w-2/5 flex flex-col justify-between space-y-6">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 bg-violet-500/10 border border-violet-500/30 rounded-full">
+                            <span class="w-2 h-2 bg-violet-400 rounded-full animate-ping"></span>
+                            <span class="text-xs font-orbitron font-bold text-violet-400 tracking-wider">LIVE GEMINI INTEGRATION</span>
+                        </div>
+                        <h2 class="text-3xl font-black font-orbitron text-white leading-snug">
+                            Gemini Esports Scout & Analyst
+                        </h2>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            Need live 2026 data on tournaments, roster updates, or stats? Ask our AI assistant! Powered by **Gemini 3 Flash** with full Google Search grounding, it fetches real-time world-class esports intel on command.
+                        </p>
+                    </div>
+
+                    <!-- Preset helper prompt bubbles -->
+                    <div class="space-y-3">
+                        <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block">Suggested Questions</span>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="presetQuery('Analyze the upcoming G2 Esports matches or roster standings in 2026.')" class="bg-slate-900 hover:bg-slate-800 text-gray-300 border border-cyber-border px-3 py-2 rounded-xl text-xs font-medium text-left transition duration-200">
+                                ⚡ Analyze G2 Standings
+                            </button>
+                            <button onclick="presetQuery('Who won the latest Valorant Champions tournament and what was the roster?')" class="bg-slate-900 hover:bg-slate-800 text-gray-300 border border-cyber-border px-3 py-2 rounded-xl text-xs font-medium text-left transition duration-200">
+                                🏆 Last VCT Champions recap
+                            </button>
+                            <button onclick="presetQuery('Provide a breakdown of the Esports World Cup 2026 club champions and prize pools.')" class="bg-slate-900 hover:bg-slate-800 text-gray-300 border border-cyber-border px-3 py-2 rounded-xl text-xs font-medium text-left transition duration-200">
+                                📊 EWC 2026 Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input/Output Panel -->
+                <div class="lg:w-3/5 bg-slate-950/80 border border-cyber-border rounded-2xl p-5 flex flex-col justify-between min-h-[350px]">
+                    <!-- Output block -->
+                    <div id="ai-response-box" class="flex-1 overflow-y-auto mb-4 p-4 rounded-xl bg-slate-900/50 border border-cyber-border/40 text-sm text-gray-300 space-y-4 max-h-[300px]">
+                        <div class="flex items-start gap-3">
+                            <div class="bg-violet-600 p-2 rounded-lg shrink-0">
+                                <i class="fa-solid fa-robot text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-200 font-bold text-xs mb-1">AI Assistant</p>
+                                <p class="text-gray-400 leading-relaxed text-xs">
+                                    Awaiting instructions, commander. Ask me anything about current games, roster updates, global championships, or live EWC standings!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Block -->
+                    <div class="space-y-3">
+                        <div class="relative">
+                            <textarea id="ai-input" rows="2" placeholder="Ask about live news, tournament brackets, or players..." class="w-full bg-slate-900 border border-cyber-border rounded-xl pl-4 pr-12 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 text-gray-100 placeholder-gray-500 resize-none transition-all"></textarea>
+                            <button id="send-ai-btn" onclick="submitAIQuery()" class="absolute right-3 bottom-3 bg-violet-600 hover:bg-violet-500 text-white w-10 h-10 rounded-lg flex items-center justify-center transition-all shadow-lg shadow-violet-600/25">
+                                <i class="fa-solid fa-paper-plane text-xs"></i>
+                            </button>
+                        </div>
+                        <div id="citation-container" class="hidden flex-wrap gap-2 text-xs text-gray-400 items-center">
+                            <span class="font-bold text-violet-400 flex items-center gap-1">
+                                <i class="fa-solid fa-link text-[10px]"></i> Sources:
+                            </span>
+                            <div id="citation-links" class="flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- News Detail Modal Overlay -->
+    <div id="article-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-cyber-card border border-cyber-border w-full max-w-3xl rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <!-- Header bar with image -->
+            <div class="relative h-60 w-full shrink-0">
+                <img id="modal-image" src="" alt="Article Banner" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-cyber-card via-cyber-card/40 to-transparent"></div>
+                <!-- Close Button -->
+                <button onclick="closeArticleModal()" class="absolute top-4 right-4 bg-black/60 hover:bg-black/90 text-white p-2.5 rounded-full transition-all">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+                <div class="absolute bottom-4 left-6 right-6">
+                    <span id="modal-badge" class="bg-violet-600 text-white text-[10px] font-bold tracking-widest uppercase font-orbitron px-3 py-1 rounded-full"></span>
+                </div>
+            </div>
+            
+            <!-- Content block with custom scroll -->
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-4">
+                <div class="flex items-center gap-3 text-xs text-gray-400">
+                    <span id="modal-date"></span>
+                    <span>•</span>
+                    <span id="modal-read-time"></span>
+                    <span id="modal-tournament" class="ml-auto bg-slate-900 border border-cyber-border text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider text-gray-300"></span>
+                </div>
+                <h3 id="modal-title" class="font-orbitron font-extrabold text-2xl text-white"></h3>
+                <div id="modal-content" class="text-sm text-gray-300 leading-relaxed space-y-4">
+                    <!-- Dynamic paragraphs -->
+                </div>
+                <!-- Actions -->
+                <div class="pt-6 border-t border-cyber-border flex flex-wrap gap-3 items-center justify-between">
+                    <button id="modal-bookmark-btn" class="bg-slate-900 hover:bg-slate-800 text-sm font-bold border border-cyber-border px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <!-- Icon inject -->
+                    </button>
+                    <button id="modal-share-btn" class="bg-violet-600 hover:bg-violet-500 text-sm font-bold text-white px-5 py-2.5 rounded-xl transition flex items-center gap-2">
+                        <i class="fa-solid fa-share-nodes"></i> Copy Article Summary
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customized Non-Block System Toast System -->
+    <div id="toast-container" class="fixed bottom-5 right-5 space-y-3 z-50"></div>
+
+    <!-- Footer Section -->
+    <footer class="border-t border-cyber-border bg-slate-950 mt-20 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-6">
+            <span class="font-orbitron text-xl font-black text-gray-300 tracking-wider">NEXUS ESPORTS</span>
+            <p class="text-xs text-gray-500 max-w-md mx-auto">
+                Your premier terminal for all live game updates, club championships, results, and grounded real-time AI esports intelligence.
+            </p>
+            <div class="flex justify-center gap-6 text-gray-500 text-sm">
+                <a href="#" class="hover:text-violet-400 transition"><i class="fa-brands fa-twitter"></i> Twitter</a>
+                <a href="#" class="hover:text-violet-400 transition"><i class="fa-brands fa-discord"></i> Discord</a>
+                <a href="#" class="hover:text-violet-400 transition"><i class="fa-brands fa-youtube"></i> Youtube</a>
+            </div>
+            <p class="text-[10px] text-gray-600">&copy; 2026 Nexus Esports Inc. Powered by Gemini AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Master Application State & Data Script -->
+    <script>
+        // Master database for fallback/preset global news items
+        const newsData = [
+            {
+                id: "hero-ewc-2026",
+                title: "The Esports World Cup 2026 Crowns Its Champion: G2 Esports Domination in Riyadh",
+                summary: "After eight weeks of intense action across 22 game titles, G2 Esports secured the supreme Club Championship.",
+                content: "Berlin-based powerhouse G2 Esports secured a historical crowning championship at Riyadh, Saudi Arabia. Dominating in both CS2, Rocket League, and Rainbow Six Siege, G2 Esports accumulated an impressive 3,450 cumulative points to take the $7,000,000 top organization share of the grand club award.\n\nTeam Liquid followed in close second place, securing gold in Teamfight Tactics and solid podium places across League of Legends and StarCraft II. The grand tournament has set new benchmark records for simultaneous online viewers and overall event footprint.",
+                game: "CS2",
+                club: "G2 Esports",
+                country: "Saudi Arabia",
+                tournament: "EWC 2026",
+                type: "tournament",
+                date: "June 20, 2026",
+                readTime: "5 mins read",
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                id: "hero-sentinels-aspas",
+                title: "Sentinels Acquire Aspas in Blockbuster Valorant Roster Shakeup",
+                summary: "Sentinels complete their Valorant starting roster with one of the most celebrated duelists in esports history.",
+                content: "In what analysts are calling the biggest Americas VCT roster move of the year, Sentinels have officially finalized contracts to secure world champion duelist Aspas. Following structural team adjustments after the first Masters series of 2026, the veteran is slated to step in directly as the primary duelist.\n\nSentinels leadership expressed extreme confidence: 'As we prepare for the Champions series, adding a world-class finisher like Aspas alters our tactical ceiling completely.' Role configurations, team schedules, and visual strategies are currently undergoing rigorous boot camp testing.",
+                game: "Valorant",
+                club: "Sentinels",
+                country: "United States",
+                tournament: "VCT Champions 2026",
+                type: "roster",
+                date: "June 18, 2026",
+                readTime: "4 mins read",
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                id: "t1-faker-worlds",
+                title: "T1 Triumphs over Gen.G in Thrilling LCK Championship Finale",
+                summary: "Faker leads T1 to another magnificent victory, securing their direct seed into Worlds 2026.",
+                content: "Before a sold-out stadium in Seoul, T1 showcased high tactical adaptability to best rivals Gen.G with a 3-2 margin in the regional playoffs final. The victory grants T1 a direct pass to the League of Legends Worlds 2026 event.\n\nVeteran mid-laner Faker controlled the pace of game five, picking up match MVP after outstanding team-fight setups on Orianna. This series cements T1's relentless competitive drive heading into the international tournament loop.",
+                game: "League of Legends",
+                club: "T1",
+                country: "South Korea",
+                tournament: "Worlds 2026",
+                type: "result",
+                date: "June 15, 2026",
+                readTime: "6 mins read",
+                image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                id: "navi-pgl-copenhagen",
+                title: "NAVI Wins Grand Finals Slot at PGL CS2 Major",
+                summary: "The European organization secures continuous victories against Heroic to take the top bracket position.",
+                content: "Natus Vincere has advanced directly to the grand final of PGL Major after a commanding showing against Team Vitality. Boasting a flawless series on Ancient, NAVI's strategic coordination proved too strong to overcome.\n\nThe roster expressed major focus on structural play and map control. They will face G2 Esports in what promises to be a legendary grand final rematch.",
+                game: "CS2",
+                club: "NAVI",
+                country: "Denmark",
+                tournament: "PGL Major Copenhagen",
+                type: "tournament",
+                date: "June 12, 2026",
+                readTime: "3 mins read",
+                image: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                id: "liquid-ti-dota",
+                title: "Team Liquid Completes Roster Transition Ahead of The International 2026",
+                summary: "A fresh support lineup joins the legendary Dota 2 squad with the aim of repeating historical championships.",
+                content: "Team Liquid is adjusting their active roster configuration ahead of the Dota 2 championship cycle. Welcoming two highly promising regional supports, the organization signals a transition toward faster, team-fight-driven strategies.\n\nAfter a disappointing finish at ESL One earlier this year, these proactive team adjustments indicate Team Liquid is going all-in for the $15M International tournament.",
+                game: "Dota 2",
+                club: "Team Liquid",
+                country: "Brazil",
+                tournament: "The International 2026",
+                type: "roster",
+                date: "June 09, 2026",
+                readTime: "4 mins read",
+                image: "https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&q=80&w=800"
+            },
+            {
+                id: "g2-vitality-clash",
+                title: "G2 Esports Topple Team Vitality in Valorant EMEA Showdown",
+                summary: "An exceptional performance on Bind secures G2 a high-seeding spot in EMEA Challengers.",
+                content: "G2 Esports secured a highly tactical victory against Vitality in a tense EMEA face-off. Leveraging excellent map adaptation and bold post-plant defenses, G2 maintained control across the full match series.\n\nWith both clubs currently battling for direct slots in regional Master events, this victory marks a crucial turn of momentum for the G2 Esports organization.",
+                game: "Valorant",
+                club: "G2 Esports",
+                country: "Denmark",
+                tournament: "VCT Champions 2026",
+                type: "result",
+                date: "June 05, 2026",
+                readTime: "5 mins read",
+                image: "https://images.unsplash.com/photo-1548685913-fe6578583000?auto=format&fit=crop&q=80&w=800"
+            }
+        ];
+
+        // Global live score mock data
+        const liveMatches = [
+            { game: "CS2", teamA: "NAVI", teamB: "G2 Esports", scoreA: "11", scoreB: "13", status: "Recent", label: "Final Map 3" },
+            { game: "LoL", teamA: "T1", teamB: "Gen.G", scoreA: "2", scoreB: "1", status: "LIVE", label: "Game 4 / 14 mins" },
+            { game: "Valorant", teamA: "Sentinels", teamB: "Fnatic", scoreA: "13", scoreB: "9", status: "Recent", label: "Final Map 2" },
+            { game: "Dota 2", teamA: "Liquid", teamB: "Spirit", scoreA: "1", scoreB: "1", status: "LIVE", label: "Game 3 / Draft" }
+        ];
+
+        // UI App State
+        let activeTab = 'all';
+        let searchQuery = '';
+        let selectedTypeFilter = 'all';
+        let selectedGame = '';
+        let selectedClub = '';
+        let selectedTournament = '';
+        let selectedCountry = '';
+        let bookmarkedIds = [];
+
+        // Window onload sequence
+        window.onload = function() {
+            // Load bookmarks from localStorage if available
+            try {
+                const saved = localStorage.getItem('nexus_bookmarks');
+                if (saved) {
+                    bookmarkedIds = JSON.parse(saved);
+                }
+            } catch(e) {
+                console.warn("Could not read localstorage", e);
+            }
+
+            renderLiveMatches();
+            renderFilters();
+            renderNewsFeed();
+            updateBookmarkBadge();
+        };
+
+        // Render top live match results ticker
+        function renderLiveMatches() {
+            const container = document.getElementById('live-matches-container');
+            container.innerHTML = '';
+            
+            liveMatches.forEach(match => {
+                const isLive = match.status === "LIVE";
+                const badgeColor = isLive ? "bg-rose-500/10 text-rose-400 border-rose-500/30" : "bg-slate-800 text-slate-400 border-slate-700";
+                
+                const card = `
+                    <div class="flex items-center gap-3 bg-slate-950 border border-cyber-border py-1 px-3.5 rounded-xl shrink-0 min-w-[220px]">
+                        <span class="text-[10px] font-black uppercase font-orbitron tracking-wider text-violet-400">${match.game}</span>
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-gray-200">${match.teamA} vs ${match.teamB}</span>
+                            <span class="text-[11px] font-semibold text-gray-400">${match.scoreA} - ${match.scoreB}</span>
+                        </div>
+                        <span class="ml-auto text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${badgeColor} flex items-center gap-1">
+                            ${isLive ? '<span class="w-1.5 h-1.5 rounded-full bg-rose-500 pulse-dot"></span>' : ''}
+                            ${match.status}
+                        </span>
+                    </div>
+                `;
+                container.innerHTML += card;
+            });
+        }
+
+        // Handle navigation Tab switches
+        function switchTab(tabName) {
+            activeTab = tabName;
+            
+            // Toggle active classes on Nav buttons
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+                btn.className = "nav-tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 text-gray-400 hover:text-white hover:bg-slate-900 relative";
+            });
+
+            const activeBtn = document.getElementById(`nav-btn-${tabName}`);
+            if (activeBtn) {
+                activeBtn.className = "nav-tab-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 bg-violet-600/20 text-violet-400 border border-violet-500/30 relative";
+            }
+
+            // Show proper tab content block
+            document.querySelectorAll('.tab-content').forEach(block => {
+                block.classList.add('hidden');
+                block.classList.remove('block');
+            });
+
+            const activeBlock = document.getElementById(`tab-${tabName}`);
+            if (activeBlock) {
+                activeBlock.classList.remove('hidden');
+                activeBlock.classList.add('block');
+            }
+
+            // Specific tab operations
+            if (tabName === 'bookmarks') {
+                renderBookmarksFeed();
+            } else if (tabName === 'results') {
+                renderResultsFeed();
+            } else if (tabName === 'all') {
+                renderNewsFeed();
+            }
+        }
+
+        // Render structural filter lists dynamically from dataset
+        function renderFilters() {
+            // Note: Select templates already loaded. Here we sync badge rows
+            updateActiveBadgesRow();
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('news-search-input').value.toLowerCase();
+            renderNewsFeed();
+        }
+
+        function setNewsTypeFilter(type) {
+            selectedTypeFilter = type;
+            
+            // Adjust styling of buttons
+            document.querySelectorAll('.type-filter-btn').forEach(btn => {
+                btn.className = "type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-950 border border-cyber-border text-gray-400 hover:text-white transition-all";
+            });
+
+            // Find current and highlight it
+            const target = event.currentTarget;
+            target.className = "type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-violet-600 text-white transition-all";
+            
+            renderNewsFeed();
+        }
+
+        function applyDropdownFilters() {
+            selectedGame = document.getElementById('filter-game').value;
+            selectedClub = document.getElementById('filter-club').value;
+            selectedTournament = document.getElementById('filter-tournament').value;
+            selectedCountry = document.getElementById('filter-country').value;
+            
+            updateActiveBadgesRow();
+            renderNewsFeed();
+        }
+
+        function resetFilters() {
+            // Reset inputs
+            document.getElementById('news-search-input').value = '';
+            document.getElementById('filter-game').value = '';
+            document.getElementById('filter-club').value = '';
+            document.getElementById('filter-tournament').value = '';
+            document.getElementById('filter-country').value = '';
+            
+            searchQuery = '';
+            selectedGame = '';
+            selectedClub = '';
+            selectedTournament = '';
+            selectedCountry = '';
+            selectedTypeFilter = 'all';
+
+            // Reset type buttons
+            document.querySelectorAll('.type-filter-btn').forEach((btn, index) => {
+                if (index === 0) {
+                    btn.className = "type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-violet-600 text-white transition-all";
+                } else {
+                    btn.className = "type-filter-btn px-4 py-1.5 rounded-lg text-xs font-bold bg-slate-950 border border-cyber-border text-gray-400 hover:text-white transition-all";
+                }
+            });
+
+            updateActiveBadgesRow();
+            renderNewsFeed();
+            showToast("Filters successfully reset", "info");
+        }
+
+        function updateActiveBadgesRow() {
+            const container = document.getElementById('active-badges-row');
+            
+            // Clear prior dynamic badges
+            const priorBadges = container.querySelectorAll('.dynamic-badge');
+            priorBadges.forEach(b => b.remove());
+
+            const activeFilters = [];
+            if (selectedGame) activeFilters.push({ key: 'game', val: selectedGame });
+            if (selectedClub) activeFilters.push({ key: 'club', val: selectedClub });
+            if (selectedTournament) activeFilters.push({ key: 'tournament', val: selectedTournament });
+            if (selectedCountry) activeFilters.push({ key: 'country', val: selectedCountry });
+
+            if (activeFilters.length > 0) {
+                container.classList.remove('hidden');
+                container.classList.add('flex');
+                
+                // Add badges right before the reset button
+                const resetButton = container.querySelector('button');
+                activeFilters.forEach(f => {
+                    const badge = document.createElement('span');
+                    badge.className = "dynamic-badge bg-violet-600/10 text-violet-400 border border-violet-500/30 px-2.5 py-1 rounded-md flex items-center gap-1.5 font-semibold text-[11px]";
+                    badge.innerHTML = `
+                        ${f.val}
+                        <button onclick="removeIndividualFilter('${f.key}')" class="hover:text-rose-400 transition-colors">
+                            <i class="fa-solid fa-xmark text-[10px]"></i>
+                        </button>
+                    `;
+                    container.insertBefore(badge, resetButton);
+                });
+            } else {
+                container.classList.remove('flex');
+                container.classList.add('hidden');
+            }
+        }
+
+        function removeIndividualFilter(key) {
+            if (key === 'game') {
+                document.getElementById('filter-game').value = '';
+                selectedGame = '';
+            } else if (key === 'club') {
+                document.getElementById('filter-club').value = '';
+                selectedClub = '';
+            } else if (key === 'tournament') {
+                document.getElementById('filter-tournament').value = '';
+                selectedTournament = '';
+            } else if (key === 'country') {
+                document.getElementById('filter-country').value = '';
+                selectedCountry = '';
+            }
+            updateActiveBadgesRow();
+            renderNewsFeed();
+        }
+
+        // Main filtering engine
+        function getFilteredNews() {
+            return newsData.filter(item => {
+                // Search query match
+                const matchesSearch = !searchQuery || 
+                    item.title.toLowerCase().includes(searchQuery) || 
+                    item.summary.toLowerCase().includes(searchQuery) ||
+                    item.club.toLowerCase().includes(searchQuery) ||
+                    item.game.toLowerCase().includes(searchQuery);
+
+                // Game match
+                const matchesGame = !selectedGame || item.game === selectedGame;
+                
+                // Club match
+                const matchesClub = !selectedClub || item.club === selectedClub;
+                
+                // Tournament match
+                const matchesTournament = !selectedTournament || item.tournament === selectedTournament;
+                
+                // Country match
+                const matchesCountry = !selectedCountry || item.country === selectedCountry;
+
+                // Type match
+                const matchesType = selectedTypeFilter === 'all' || item.type === selectedTypeFilter;
+
+                return matchesSearch && matchesGame && matchesClub && matchesTournament && matchesCountry && matchesType;
+            });
+        }
+
+        // Render main grid feed
+        function renderNewsFeed() {
+            const grid = document.getElementById('news-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+
+            const filtered = getFilteredNews();
+
+            if (filtered.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            filtered.forEach(item => {
+                const isBookmarked = bookmarkedIds.includes(item.id);
+                const typeIcon = getTypeIcon(item.type);
+                
+                const card = `
+                    <article class="bg-cyber-card border border-cyber-border rounded-2xl overflow-hidden shadow-lg hover:border-violet-500/40 transition-all duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-48 overflow-hidden shrink-0">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/600x400/0f1322/ffffff?text=Esports'">
+                                <span class="absolute bottom-3 left-3 bg-slate-950/80 backdrop-blur-sm text-white text-[10px] font-black uppercase font-orbitron tracking-wider px-2.5 py-1 rounded border border-cyber-border">
+                                    ${item.game}
+                                </span>
+                                <button onclick="toggleBookmark('${item.id}')" class="absolute top-3 right-3 bg-black/60 hover:bg-black/95 text-white w-9 h-9 rounded-full flex items-center justify-center transition shadow-lg">
+                                    <i class="${isBookmarked ? 'fa-solid' : 'fa-regular'} fa-bookmark ${isBookmarked ? 'text-rose-500' : ''}"></i>
+                                </button>
+                            </div>
+                            
+                            <div class="p-5 space-y-3">
+                                <div class="flex items-center gap-2 text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                                    <span class="flex items-center gap-1 text-violet-400">
+                                        ${typeIcon} ${item.type}
+                                    </span>
+                                    <span>•</span>
+                                    <span>${item.date}</span>
+                                </div>
+                                <h4 class="font-orbitron font-bold text-base text-white group-hover:text-violet-300 transition-colors leading-snug line-clamp-2">
+                                    ${item.title}
+                                </h4>
+                                <p class="text-xs text-gray-400 line-clamp-3">
+                                    ${item.summary}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="p-5 pt-0 border-t border-cyber-border/40 flex items-center justify-between text-xs text-gray-400">
+                            <span>${item.readTime}</span>
+                            <button onclick="openArticleModal('${item.id}')" class="text-violet-400 hover:text-white font-bold flex items-center gap-1 transition">
+                                Full Article <i class="fa-solid fa-angle-right"></i>
+                            </button>
+                        </div>
+                    </article>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Return beautiful FontAwesome icons based on news category
+        function getTypeIcon(type) {
+            switch(type) {
+                case 'roster': return '<i class="fa-solid fa-users"></i>';
+                case 'result': return '<i class="fa-solid fa-square-poll-horizontal text-emerald-400"></i>';
+                case 'tournament': return '<i class="fa-solid fa-trophy text-yellow-500"></i>';
+                default: return '<i class="fa-solid fa-newspaper"></i>';
+            }
+        }
+
+        // Render match results grid
+        function renderResultsFeed() {
+            const grid = document.getElementById('match-results-main-grid');
+            grid.innerHTML = '';
+
+            const matchesOnly = newsData.filter(item => item.type === 'result');
+            
+            if (matchesOnly.length === 0) {
+                grid.innerHTML = `<div class="col-span-2 text-center text-gray-500 py-10">No recent match results logged.</div>`;
+                return;
+            }
+
+            matchesOnly.forEach(match => {
+                const card = `
+                    <div class="bg-cyber-card border border-cyber-border rounded-2xl p-5 shadow-lg flex flex-col justify-between">
+                        <div class="flex items-center justify-between border-b border-cyber-border pb-3 mb-4 text-xs text-gray-400">
+                            <span class="bg-violet-600/20 text-violet-400 px-2 py-0.5 rounded font-black font-orbitron">${match.game}</span>
+                            <span>${match.date}</span>
+                        </div>
+                        <div class="space-y-3">
+                            <h4 class="font-orbitron font-bold text-lg text-white">${match.title}</h4>
+                            <p class="text-sm text-gray-400 leading-relaxed">${match.summary}</p>
+                        </div>
+                        <div class="pt-4 mt-4 border-t border-cyber-border/40 flex justify-between items-center text-xs">
+                            <span class="text-emerald-400 font-bold uppercase"><i class="fa-solid fa-check"></i> Certified Score</span>
+                            <button onclick="openArticleModal('${match.id}')" class="text-violet-400 hover:underline">View Analytics</button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Render Bookmarked Feed Tab
+        function renderBookmarksFeed() {
+            const grid = document.getElementById('bookmarks-grid');
+            const emptyState = document.getElementById('bookmarks-empty-state');
+            grid.innerHTML = '';
+
+            const savedArticles = newsData.filter(item => bookmarkedIds.includes(item.id));
+
+            if (savedArticles.length === 0) {
+                grid.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            emptyState.classList.add('hidden');
+
+            savedArticles.forEach(item => {
+                const card = `
+                    <article class="bg-cyber-card border border-cyber-border rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between group">
+                        <div>
+                            <div class="relative h-44 overflow-hidden shrink-0">
+                                <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover">
+                                <span class="absolute bottom-3 left-3 bg-slate-950/80 text-white text-[10px] font-bold px-2.5 py-1 rounded">
+                                    ${item.game}
+                                </span>
+                                <button onclick="toggleBookmark('${item.id}')" class="absolute top-3 right-3 bg-rose-600 text-white w-9 h-9 rounded-full flex items-center justify-center shadow">
+                                    <i class="fa-solid fa-trash-can text-sm"></i>
+                                </button>
+                            </div>
+                            <div class="p-5 space-y-2">
+                                <h4 class="font-orbitron font-bold text-base text-white group-hover:text-violet-300 leading-snug line-clamp-2">
+                                    ${item.title}
+                                </h4>
+                                <p class="text-xs text-gray-400 line-clamp-3">${item.summary}</p>
+                            </div>
+                        </div>
+                        <div class="p-5 pt-0 border-t border-cyber-border/40 flex items-center justify-between text-xs text-gray-400">
+                            <span>${item.readTime}</span>
+                            <button onclick="openArticleModal('${item.id}')" class="text-violet-400 hover:underline">Read Full</button>
+                        </div>
+                    </article>
+                `;
+                grid.innerHTML += card;
+            });
+        }
+
+        // Toggle user Bookmark action
+        function toggleBookmark(id) {
+            event.stopPropagation();
+            const index = bookmarkedIds.indexOf(id);
+            if (index === -1) {
+                bookmarkedIds.push(id);
+                showToast("Added coverage to your bookmarks!", "success");
+            } else {
+                bookmarkedIds.splice(index, 1);
+                showToast("Removed coverage from bookmarks", "info");
+            }
+
+            // Sync with localstorage
+            try {
+                localStorage.setItem('nexus_bookmarks', JSON.stringify(bookmarkedIds));
+            } catch(e){}
+
+            updateBookmarkBadge();
+            
+            // Re-render based on current view tab
+            if (activeTab === 'bookmarks') {
+                renderBookmarksFeed();
+            } else {
+                renderNewsFeed();
+            }
+        }
+
+        function updateBookmarkBadge() {
+            const badge = document.getElementById('bookmark-badge');
+            if (bookmarkedIds.length > 0) {
+                badge.innerText = bookmarkedIds.length;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+        }
+
+        // Open detailed article view overlay
+        function openArticleModal(id) {
+            const article = newsData.find(item => item.id === id);
+            if (!article) return;
+
+            document.getElementById('modal-image').src = article.image;
+            document.getElementById('modal-badge').innerText = article.game;
+            document.getElementById('modal-date').innerText = article.date;
+            document.getElementById('modal-read-time').innerText = article.readTime;
+            document.getElementById('modal-tournament').innerText = article.tournament;
+            document.getElementById('modal-title').innerText = article.title;
+            
+            // Render detailed content paragraphs
+            const contentBox = document.getElementById('modal-content');
+            contentBox.innerHTML = '';
+            const paragraphs = article.content.split('\n\n');
+            paragraphs.forEach(p => {
+                const para = document.createElement('p');
+                para.className = "text-gray-300 leading-relaxed text-sm";
+                para.innerText = p;
+                contentBox.appendChild(para);
+            });
+
+            // Set dynamic action triggers
+            const bookmarkBtn = document.getElementById('modal-bookmark-btn');
+            const isBookmarked = bookmarkedIds.includes(article.id);
+            bookmarkBtn.className = isBookmarked 
+                ? "bg-rose-950/40 hover:bg-rose-900/30 text-rose-400 text-sm font-bold border border-rose-500/20 px-5 py-2.5 rounded-xl transition flex items-center gap-2"
+                : "bg-slate-900 hover:bg-slate-800 text-sm font-bold border border-cyber-border px-5 py-2.5 rounded-xl transition flex items-center gap-2";
+            bookmarkBtn.innerHTML = isBookmarked 
+                ? `<i class="fa-solid fa-bookmark text-rose-500"></i> Bookmarked` 
+                : `<i class="fa-regular fa-bookmark"></i> Save Coverage`;
+            bookmarkBtn.onclick = () => {
+                toggleBookmark(article.id);
+                // Refresh modal bookmark button state instantly
+                openArticleModal(article.id);
+            };
+
+            const shareBtn = document.getElementById('modal-share-btn');
+            shareBtn.onclick = () => {
+                const textToCopy = `[NEXUS ESPORTS] ${article.title} - Summary: ${article.summary}`;
+                copyTextToClipboard(textToCopy);
+            };
+
+            document.getElementById('article-modal').classList.remove('hidden');
+        }
+
+        function closeArticleModal() {
+            document.getElementById('article-modal').classList.add('hidden');
+        }
+
+        // Custom secured fallback copy tool for Sandboxed iframe environments
+        function copyTextToClipboard(text) {
+            const tempInput = document.createElement("input");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showToast("Article summary copied to clipboard!", "success");
+        }
+
+        // Lightweight non-disruptive Toast alerting
+        function showToast(message, type = "success") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let badgeBg = "bg-emerald-500";
+            let icon = "fa-circle-check";
+            if (type === "info") {
+                badgeBg = "bg-violet-500";
+                icon = "fa-circle-info";
+            } else if (type === "error") {
+                badgeBg = "bg-rose-500";
+                icon = "fa-circle-exclamation";
+            }
+
+            toast.className = "flex items-center gap-3 bg-slate-900 border border-cyber-border p-4 rounded-xl shadow-2xl transition-all duration-300 opacity-0 translate-y-2 max-w-sm shrink-0";
+            toast.innerHTML = `
+                <div class="${badgeBg} text-white p-2 rounded-lg text-xs flex items-center justify-center shrink-0">
+                    <i class="fa-solid ${icon}"></i>
+                </div>
+                <span class="text-xs font-semibold text-gray-200">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            
+            // Animation onset
+            setTimeout(() => {
+                toast.classList.remove('opacity-0', 'translate-y-2');
+                toast.classList.add('opacity-100', 'translate-y-0');
+            }, 10);
+
+            // Cleanup timing
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Preset preset query clicks
+        function presetQuery(text) {
+            document.getElementById('ai-input').value = text;
+            submitAIQuery();
+        }
+
+        // Main Gemini API async execution
+        async function submitAIQuery() {
+            const inputField = document.getElementById('ai-input');
+            const query = inputField.value.trim();
+            if (!query) return;
+
+            const responseBox = document.getElementById('ai-response-box');
+            const sendBtn = document.getElementById('send-ai-btn');
+            
+            // Clean dynamic interface during request
+            inputField.disabled = true;
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i>`;
+            
+            // Insert user chat message to response window
+            const userMsgHtml = `
+                <div class="flex items-start gap-3 justify-end">
+                    <div class="text-right">
+                        <p class="text-violet-400 font-bold text-xs mb-1">You</p>
+                        <p class="text-gray-300 bg-slate-900 p-3 rounded-xl border border-cyber-border text-xs leading-relaxed max-w-md inline-block">
+                            ${query}
+                        </p>
+                    </div>
+                </div>
+            `;
+            responseBox.innerHTML += userMsgHtml;
+            responseBox.scrollTop = responseBox.scrollHeight;
+
+            // Setup loading placeholder block for AI reply
+            const aiLoadingId = 'ai-loading-' + Date.now();
+            const aiLoadingHtml = `
+                <div class="flex items-start gap-3" id="${aiLoadingId}">
+                    <div class="bg-violet-600 p-2 rounded-lg shrink-0">
+                        <i class="fa-solid fa-robot text-white text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-gray-200 font-bold text-xs mb-1">AI Analyst</p>
+                        <p class="text-gray-400 text-xs animate-pulse flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-notch animate-spin"></i> Grounding query with Google Search & compiling latest 2026 data...
+                        </p>
+                    </div>
+                </div>
+            `;
+            responseBox.innerHTML += aiLoadingHtml;
+            responseBox.scrollTop = responseBox.scrollHeight;
+
+            // API Endpoint configurations
+            const apiKey = ""; // Left empty - Canvas injection compatible
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+
+            const systemPrompt = `You are a premier, world-class Esports journalist and tournament scout. 
+Your goal is to answer questions about roster shuffles, championship results, game updates, and general esports news. 
+Be accurate, energetic, concise, and professional. Prioritize real-time 2026 global dates and data.
+Structure your reply beautifully using clean, compact paragraphs.`;
+
+            const payload = {
+                contents: [{ parts: [{ text: query }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                }
+            };
+
+            // Implement exponential backoff for fetch call safety
+            let attempts = 0;
+            let success = false;
+            let responseData = null;
+            let backoffDelay = 1000;
+
+            while (attempts < 3 && !success) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        responseData = await response.json();
+                        success = true;
+                    } else {
+                        attempts++;
+                        await new Promise(resolve => setTimeout(resolve, backoffDelay));
+                        backoffDelay *= 2;
+                    }
+                } catch (error) {
+                    attempts++;
+                    await new Promise(resolve => setTimeout(resolve, backoffDelay));
+                    backoffDelay *= 2;
+                }
+            }
+
+            // Remove AI loading placeholder
+            const loadingElement = document.getElementById(aiLoadingId);
+            if (loadingElement) loadingElement.remove();
+
+            if (success && responseData) {
+                const candidate = responseData.candidates?.[0];
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    const generatedText = candidate.content.parts[0].text;
+                    
+                    // Extract citations sources if grounding was active
+                    let sources = [];
+                    const groundingMetadata = candidate.groundingMetadata;
+                    if (groundingMetadata && groundingMetadata.groundingAttributions) {
+                        sources = groundingMetadata.groundingAttributions
+                            .map(attr => ({
+                                uri: attr.web?.uri,
+                                title: attr.web?.title,
+                            }))
+                            .filter(src => src.uri && src.title);
+                    }
+
+                    // Format code/bold markers in response
+                    const formattedText = generatedText
+                        .replace(/\n/g, '<br>')
+                        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+                    // Inject formulated reply
+                    const aiReplyHtml = `
+                        <div class="flex items-start gap-3">
+                            <div class="bg-violet-600 p-2 rounded-lg shrink-0">
+                                <i class="fa-solid fa-robot text-white text-xs"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray-200 font-bold text-xs mb-1">AI Analyst</p>
+                                <div class="text-gray-300 text-xs leading-relaxed space-y-2">
+                                    ${formattedText}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    responseBox.innerHTML += aiReplyHtml;
+
+                    // Display Citations if available
+                    const citationContainer = document.getElementById('citation-container');
+                    const citationLinks = document.getElementById('citation-links');
+                    citationLinks.innerHTML = '';
+                    
+                    if (sources.length > 0) {
+                        citationContainer.classList.remove('hidden');
+                        citationContainer.classList.add('flex');
+                        
+                        // Limit to top 3 sources to avoid visual clutter
+                        sources.slice(0, 3).forEach(source => {
+                            const link = document.createElement('a');
+                            link.href = source.uri;
+                            link.target = "_blank";
+                            link.className = "bg-slate-900 border border-cyber-border text-[10px] text-violet-400 font-semibold px-2.5 py-1 rounded hover:bg-slate-800 hover:text-white transition-all flex items-center gap-1";
+                            link.innerHTML = `<i class="fa-solid fa-square-arrow-up-right text-[9px]"></i> ${source.title}`;
+                            citationLinks.appendChild(link);
+                        });
+                    } else {
+                        citationContainer.classList.remove('flex');
+                        citationContainer.classList.add('hidden');
+                    }
+
+                } else {
+                    renderAIErrorMessage(responseBox);
+                }
+            } else {
+                renderAIErrorMessage(responseBox);
+            }
+
+            // Restore input controls
+            inputField.disabled = false;
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = `<i class="fa-solid fa-paper-plane text-xs"></i>`;
+            inputField.value = '';
+            responseBox.scrollTop = responseBox.scrollHeight;
+        }
+
+        function renderAIErrorMessage(container) {
+            const errHtml = `
+                <div class="flex items-start gap-3 text-rose-400">
+                    <div class="bg-rose-950 p-2 rounded-lg shrink-0">
+                        <i class="fa-solid fa-circle-exclamation text-rose-500 text-xs"></i>
+                    </div>
+                    <div>
+                        <p class="text-rose-300 font-bold text-xs mb-1">System Issue</p>
+                        <p class="text-xs">
+                            The terminal was unable to establish connection with the Gemini server. Please check your web configuration or query context and try again.
+                        </p>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += errHtml;
+        }
+    </script>
+</body>
+</html>
